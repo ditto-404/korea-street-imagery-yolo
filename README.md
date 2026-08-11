@@ -5,7 +5,6 @@
 ![Mapillary](https://img.shields.io/badge/data-Mapillary%20API%20v4-4B0082?style=flat-square)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 ![Status](https://img.shields.io/badge/status-experimental-lightgrey?style=flat-square)
-
 [![한국어](https://img.shields.io/badge/lang-한국어-lightgrey?style=social&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBzdHJva2U9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiIC8+PHBhdGggZD0iTTMgMTJhOSA5IDAgMSAwIDE4IDBhOSA5IDAgMCAwIC0xOCAwIiAvPjxwYXRoIGQ9Ik0zLjYgOWgxNi44IiAvPjxwYXRoIGQ9Ik0zLjYgMTVoMTYuOCIgLz48cGF0aCBkPSJNMTEuNSAzYTE3IDE3IDAgMCAwIDAgMTgiIC8+PHBhdGggZD0iTTEyLjUgM2ExNyAxNyAwIDAgMSAwIDE4IiAvPjwvc3ZnPg==)](#korea-street-imagery-yolo-한국-스트리트-이미지리-yolo-탐지)
 [![English](https://img.shields.io/badge/lang-English-lightgrey?style=social&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBzdHJva2U9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiIC8+PHBhdGggZD0iTTMgMTJhOSA5IDAgMSAwIDE4IDBhOSA5IDAgMCAwIC0xOCAwIiAvPjxwYXRoIGQ9Ik0zLjYgOWgxNi44IiAvPjxwYXRoIGQ9Ik0zLjYgMTVoMTYuOCIgLz48cGF0aCBkPSJNMTEuNSAzYTE3IDE3IDAgMCAwIDAgMTgiIC8+PHBhdGggZD0iTTEyLjUgM2ExNyAxNyAwIDAgMSAwIDE4IiAvPjwvc3ZnPg==)](#english)
 
@@ -48,37 +47,51 @@ flowchart LR
 
 ## 설치
 
-1. Windows PowerShell을 열고 레포를 클론합니다.
+1. 레포를 받습니다. git 설치 여부에 따라 두 가지 방법 중 하나를 씁니다.
+
+   **방법 A. git으로 클론**
+
+   Windows PowerShell을 열고 입력합니다.
 
    ```powershell
-   git clone <repo-url>
+   git clone https://github.com/ditto-404/korea-street-imagery-yolo.git
    cd korea-street-imagery-yolo
    ```
 
-2. 같은 PowerShell 창에서 가상환경을 만들고 활성화합니다.
+   **방법 B. ZIP으로 받기**
 
-   ```powershell
-   python -m venv .venv
-   .venv\Scripts\Activate.ps1
-   ```
+   - [저장소 페이지](https://github.com/ditto-404/korea-street-imagery-yolo)에 접속합니다.
+   - 초록색 **Code** 버튼을 누르고 **Download ZIP**을 클릭합니다.
+   - 다운로드된 `korea-street-imagery-yolo-main.zip`을 원하는 위치에 압축 해제합니다.
+   - 압축 해제된 `korea-street-imagery-yolo-main` 폴더를 엽니다. 그 폴더 안에서 파일 탐색기 주소창을 클릭하고 `powershell`을 입력한 뒤 Enter를 누르면, 그 폴더를 작업 디렉터리로 하는 PowerShell 창이 열립니다.
 
-3. 의존성을 설치합니다.
+   이후 단계는 두 방법 모두 동일합니다.
 
-   ```powershell
-   pip install -r requirements.txt
-   ```
+2. [Mapillary 개발자 대시보드](https://www.mapillary.com/dashboard/developers)에서 무료 계정을 만들고 새 애플리케이션을 등록해 **Client Token**을 발급받습니다.
 
-4. [Mapillary 개발자 대시보드](https://www.mapillary.com/dashboard/developers)에서 무료 계정을 만들고 새 애플리케이션을 등록해 **Client Token**을 발급받습니다.
-
-5. `.env.example` 파일을 `.env`로 복사한 뒤 `MAPILLARY_ACCESS_TOKEN` 값을 방금 발급받은 토큰으로 채웁니다. 커맨드라인 대신 파일 탐색기에서 `.env.example`을 복사해 붙여넣고 파일명을 `.env`로 바꿔도 동일하게 동작합니다.
+3. `.env.example` 파일을 `.env`로 복사한 뒤 `MAPILLARY_ACCESS_TOKEN` 값을 방금 발급받은 토큰으로 채웁니다. 커맨드라인 대신 파일 탐색기에서 `.env.example`을 복사해 붙여넣고 파일명을 `.env`로 바꿔도 동일하게 동작합니다.
 
    ```powershell
    Copy-Item .env.example .env
    ```
 
+가상환경 생성과 의존성 설치는 실행 방법(PowerShell 또는 Jupyter Notebook)에 따라 달라서, 아래 [사용법](#사용법)에서 방법별로 안내합니다.
+
 ## 사용법
 
-기본 설정에는 서울 강남, 부산 해운대 두 데모 지역이 들어 있습니다. `config.yaml`의 `regions` 항목에 원하는 지역의 bbox(`[min_lon, min_lat, max_lon, max_lat]`)를 추가하면 다른 지역도 바로 수집할 수 있습니다.
+기본 설정에는 서울 강남, 부산 해운대 두 데모 지역이 들어 있습니다. `config.yaml`의 `regions` 항목에 원하는 지역의 bbox(`[min_lon, min_lat, max_lon, max_lat]`)를 추가하면 다른 지역도 바로 수집할 수 있습니다. 실행 방법은 두 가지입니다.
+
+**방법 A. PowerShell로 실행**
+
+가상환경을 만들고 의존성을 설치합니다.
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+원하는 명령을 실행합니다.
 
 ```powershell
 # 특정 지역 이미지 + 메타데이터만 수집
@@ -94,7 +107,17 @@ python scripts/detect_objects.py --metadata-dir data/metadata
 python scripts/run_pipeline.py --all
 ```
 
-실행이 끝나면 다음 결과물을 확인할 수 있습니다.
+**방법 B. Jupyter Notebook으로 실행**
+
+가상환경을 만들거나 `pip install`을 먼저 실행할 필요가 없습니다. Python과 Jupyter가 설치되어 있다면 Jupyter Notebook에서 `notebooks/run_pipeline.ipynb` 파일을 바로 엽니다. 첫 번째 코드 셀이 `requirements.txt`의 의존성을 자동으로 설치합니다. 이후 셀을 위에서부터 순서대로 실행(Shift+Enter)하면 다음을 확인할 수 있습니다.
+
+- `config.yaml` 설정 불러오기
+- 지정한 지역의 이미지·메타데이터 수집 결과를 표(DataFrame)로 미리보기
+- YOLO 탐지 실행 및 탐지 결과 표, 클래스별 개수 미리보기
+- 탐지된 이미지 중 하나를 bounding box와 함께 노트북 안에서 바로 확인
+
+
+**실행이 끝나면 다음 결과물을 확인할 수 있습니다.**
 
 - `data/metadata/{region}_metadata.csv` / `.parquet`: 이미지별 촬영일, 좌표, 방위각, 로컬 경로
 - `data/results/detections/detections.csv` / `.parquet`: 탐지 객체별 클래스, 신뢰도, bbox 좌표, 촬영 좌표/일시
@@ -114,6 +137,8 @@ python scripts/run_pipeline.py --all
 ├── .gitignore
 ├── config.yaml                # 지역 bbox, YOLO 클래스/threshold 설정
 ├── requirements.txt
+├── notebooks/
+│   └── run_pipeline.ipynb      # 수집→탐지→결과 확인을 단계별로 실행하는 노트북
 ├── src/
 │   ├── config.py               # config.yaml 및 .env 로더
 │   ├── utils.py                # 로깅 설정, bbox 타일링
@@ -138,6 +163,7 @@ python scripts/run_pipeline.py --all
 | `src/collect.py` | bbox 타일링, 중복 이미지 ID 제거, 원본 이미지 저장, 메타데이터 CSV/Parquet 저장을 한 번에 처리합니다. 지역별로 함수를 분리해서(`collect_region` / `collect_all_regions`) 특정 지역만 다시 수집하고 싶을 때도 전체를 다시 돌릴 필요가 없습니다. |
 | `src/detect.py` | YOLO 추론, 관심 클래스 필터링, bounding box 시각화, 결과 저장을 담당합니다. 탐지 결과가 있는 이미지에 대해서만 주석 이미지를 생성해 불필요한 디스크 사용을 줄입니다. |
 | `config.yaml` | 지역 bbox, 타일 크기, YOLO 모델/threshold/대상 클래스를 코드 수정 없이 바꿀 수 있게 분리했습니다. |
+| `notebooks/run_pipeline.ipynb` | `src/collect.py`와 `src/detect.py`를 CLI 대신 노트북 셀에서 직접 호출합니다. 수집된 메타데이터와 탐지 결과를 DataFrame으로, 주석 이미지를 셀 출력으로 바로 확인할 수 있어 지역별 파라미터를 바꿔가며 실험할 때 CLI보다 편리합니다. |
 
 ## 한계
 
@@ -197,37 +223,51 @@ Mapillary's `/images` endpoint caps the number of results per request, so large 
 
 ### Installation
 
-1. Open Windows PowerShell and clone the repository.
+1. Get a copy of the repository. Pick one of the two methods below depending on whether you have git installed.
+
+   **Method A. Clone with git**
+
+   Open Windows PowerShell and enter:
 
    ```powershell
-   git clone <repo-url>
+   git clone https://github.com/ditto-404/korea-street-imagery-yolo.git
    cd korea-street-imagery-yolo
    ```
 
-2. In the same PowerShell window, create and activate a virtual environment.
+   **Method B. Download as a ZIP**
 
-   ```powershell
-   python -m venv .venv
-   .venv\Scripts\Activate.ps1
-   ```
+   - Go to the [repository page](https://github.com/ditto-404/korea-street-imagery-yolo).
+   - Click the green **Code** button, then **Download ZIP**.
+   - Extract the downloaded `korea-street-imagery-yolo-main.zip` wherever you like.
+   - Open the extracted `korea-street-imagery-yolo-main` folder. Click the address bar in File Explorer, type `powershell`, and press Enter to open a PowerShell window with that folder as its working directory.
 
-3. Install the dependencies.
+   The remaining steps are the same either way.
 
-   ```powershell
-   pip install -r requirements.txt
-   ```
+2. Create a free account and register a new application at the [Mapillary developer dashboard](https://www.mapillary.com/dashboard/developers) to get a **Client Token**.
 
-4. Create a free account and register a new application at the [Mapillary developer dashboard](https://www.mapillary.com/dashboard/developers) to get a **Client Token**.
-
-5. Copy `.env.example` to `.env` and fill in `MAPILLARY_ACCESS_TOKEN` with the token you just created. You can also do this manually in File Explorer by copying `.env.example`, pasting it, and renaming it to `.env`.
+3. Copy `.env.example` to `.env` and fill in `MAPILLARY_ACCESS_TOKEN` with the token you just created. You can also do this manually in File Explorer by copying `.env.example`, pasting it, and renaming it to `.env`.
 
    ```powershell
    Copy-Item .env.example .env
    ```
 
+Creating a virtual environment and installing dependencies depends on how you plan to run the pipeline (PowerShell or Jupyter Notebook), so that's covered per method under [Usage](#usage) below.
+
 ### Usage
 
-The default configuration includes two demo regions in Korea: Seoul Gangnam and Busan Haeundae. Add more regions to `config.yaml` under `regions` with a bbox (`[min_lon, min_lat, max_lon, max_lat]`) to collect any other area.
+The default configuration includes two demo regions in Korea: Seoul Gangnam and Busan Haeundae. Add more regions to `config.yaml` under `regions` with a bbox (`[min_lon, min_lat, max_lon, max_lat]`) to collect any other area. There are two ways to run it.
+
+**Method A. Run via PowerShell**
+
+Create a virtual environment and install the dependencies.
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+Run whichever command you need.
 
 ```powershell
 # Collect images + metadata for one region only
@@ -243,7 +283,17 @@ python scripts/detect_objects.py --metadata-dir data/metadata
 python scripts/run_pipeline.py --all
 ```
 
-After running, you'll find:
+**Method B. Run via Jupyter Notebook**
+
+No need to create a virtual environment or run `pip install` first. If Python and Jupyter are already installed, just open `notebooks/run_pipeline.ipynb` in Jupyter Notebook. The first code cell automatically installs the dependencies from `requirements.txt`. Run the remaining cells top to bottom (Shift+Enter) to see:
+
+- Configuration loaded from `config.yaml`
+- A preview (DataFrame) of the collected images and metadata for a chosen region
+- YOLO detection results and per-class detection counts
+- One of the detected images displayed inline with its bounding boxes
+
+
+**After running, you'll find:**
 
 - `data/metadata/{region}_metadata.csv` / `.parquet`: per-image capture date, coordinates, compass angle, and local path
 - `data/results/detections/detections.csv` / `.parquet`: per-detection class, confidence, bbox coordinates, and capture location/time
@@ -263,6 +313,8 @@ A row in `detections.csv` looks like this:
 ├── .gitignore
 ├── config.yaml                # Region bboxes, YOLO classes/thresholds
 ├── requirements.txt
+├── notebooks/
+│   └── run_pipeline.ipynb      # Step-by-step notebook: collect, detect, inspect results
 ├── src/
 │   ├── config.py               # config.yaml and .env loader
 │   ├── utils.py                # Logging setup, bbox tiling
@@ -287,6 +339,7 @@ A row in `detections.csv` looks like this:
 | `src/collect.py` | Handles bbox tiling, deduplicating image IDs, saving raw images, and writing metadata to CSV/Parquet in one pass. Splitting `collect_region` from `collect_all_regions` lets you re-collect a single region without rerunning everything. |
 | `src/detect.py` | Runs YOLO inference, filters to the configured target classes, draws bounding boxes, and saves results. Annotated images are only generated for images that have at least one detection, to avoid wasted disk usage. |
 | `config.yaml` | Separates region bboxes, tile size, and YOLO model/threshold/target classes from the code so they can be changed without touching Python files. |
+| `notebooks/run_pipeline.ipynb` | Calls `src/collect.py` and `src/detect.py` directly from notebook cells instead of the CLI. Collected metadata and detection results show up as DataFrames and annotated images render as cell output, which is more convenient than the CLI when experimenting with different region parameters. |
 
 ### Limitations
 
