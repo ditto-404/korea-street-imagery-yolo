@@ -1,0 +1,45 @@
+# Pipeline configuration.
+# All paths are relative to the project root.
+
+mapillary:
+  base_url: "https://graph.mapillary.com"
+  # Mapillary's /images endpoint returns a bounded number of results per
+  # bbox query, so large areas are split into small tiles (in degrees;
+  # ~0.01 deg is roughly 1 km at Korea's latitude) to get fuller coverage.
+  bbox_tile_size: 0.01
+  # Max images requested per tile (Mapillary allows up to 2000).
+  images_per_tile: 20
+  # thumb_256_url | thumb_1024_url | thumb_2048_url | thumb_original_url
+  image_field: "thumb_1024_url"
+
+# Small demo regions in Korea. bbox format: [min_lon, min_lat, max_lon, max_lat]
+# Add / edit regions freely, or point them at any area you have interest in.
+regions:
+  seoul_gangnam:
+    bbox: [127.020, 37.490, 127.050, 37.520]
+  busan_haeundae:
+    bbox: [129.150, 35.150, 129.180, 35.180]
+
+detection:
+  # Any Ultralytics YOLO checkpoint name; auto-downloaded on first run.
+  model: "yolov8n.pt"
+  confidence: 0.25
+  iou: 0.45
+  # COCO pretrained class names only. Note: COCO has no generic "traffic
+  # sign" class - "stop sign" is the closest available class. See README
+  # "Limitations" for how to add full traffic-sign detection.
+  target_classes:
+    - person
+    - bicycle
+    - car
+    - motorcycle
+    - bus
+    - truck
+    - traffic light
+    - stop sign
+
+paths:
+  raw_images: "data/raw"
+  metadata: "data/metadata"
+  detections: "data/results/detections"
+  annotated_images: "data/results/annotated"
