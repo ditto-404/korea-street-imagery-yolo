@@ -27,6 +27,12 @@ data/results/detections/*
 # YOLO pretrained weights (auto-downloaded by ultralytics on first run)
 *.pt
 
+# Jupyter
+.ipynb_checkpoints/
+
+# Personal notes (local only, not for the public repo)
+CLAUDE.md
+
 # OS
 .DS_Store
 Thumbs.db
