@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment variables (contains the Mapillary access token)
+.env
+
+# Collected imagery and pipeline outputs (large, regenerable via scripts/)
+data/raw/*
+data/metadata/*
+data/results/annotated/*
+data/results/detections/*
+!data/raw/.gitkeep
+!data/metadata/.gitkeep
+!data/results/annotated/.gitkeep
+!data/results/detections/.gitkeep
+
+# YOLO pretrained weights (auto-downloaded by ultralytics on first run)
+*.pt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
