@@ -1,11 +1,11 @@
-# korea-street-imagery-yolo (한국 스트리트 이미지리 YOLO 탐지)
+# korea-street-imagery-yolo (한국 스트리트뷰 이미지 YOLO 객체 탐지)
 
 ![Python](https://img.shields.io/badge/python-3.9%2B-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Ultralytics YOLO](https://img.shields.io/badge/model-Ultralytics%20YOLO-00A388?style=flat-square)
 ![Mapillary](https://img.shields.io/badge/data-Mapillary%20API%20v4-4B0082?style=flat-square)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 ![Status](https://img.shields.io/badge/status-experimental-lightgrey?style=flat-square)
-[![한국어](https://img.shields.io/badge/lang-한국어-lightgrey?style=social&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBzdHJva2U9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiIC8+PHBhdGggZD0iTTMgMTJhOSA5IDAgMSAwIDE4IDBhOSA5IDAgMCAwIC0xOCAwIiAvPjxwYXRoIGQ9Ik0zLjYgOWgxNi44IiAvPjxwYXRoIGQ9Ik0zLjYgMTVoMTYuOCIgLz48cGF0aCBkPSJNMTEuNSAzYTE3IDE3IDAgMCAwIDAgMTgiIC8+PHBhdGggZD0iTTEyLjUgM2ExNyAxNyAwIDAgMSAwIDE4IiAvPjwvc3ZnPg==)](#korea-street-imagery-yolo-한국-스트리트-이미지리-yolo-탐지)
+[![한국어](https://img.shields.io/badge/lang-한국어-lightgrey?style=social&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBzdHJva2U9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiIC8+PHBhdGggZD0iTTMgMTJhOSA5IDAgMSAwIDE4IDBhOSA5IDAgMCAwIC0xOCAwIiAvPjxwYXRoIGQ9Ik0zLjYgOWgxNi44IiAvPjxwYXRoIGQ9Ik0zLjYgMTVoMTYuOCIgLz48cGF0aCBkPSJNMTEuNSAzYTE3IDE3IDAgMCAwIDAgMTgiIC8+PHBhdGggZD0iTTEyLjUgM2ExNyAxNyAwIDAgMSAwIDE4IiAvPjwvc3ZnPg==)](#korea-street-imagery-yolo-한국-스트리트뷰-이미지-yolo-객체-탐지)
 [![English](https://img.shields.io/badge/lang-English-lightgrey?style=social&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBzdHJva2U9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiIC8+PHBhdGggZD0iTTMgMTJhOSA5IDAgMSAwIDE4IDBhOSA5IDAgMCAwIC0xOCAwIiAvPjxwYXRoIGQ9Ik0zLjYgOWgxNi44IiAvPjxwYXRoIGQ9Ik0zLjYgMTVoMTYuOCIgLz48cGF0aCBkPSJNMTEuNSAzYTE3IDE3IDAgMCAwIDAgMTgiIC8+PHBhdGggZD0iTTEyLjUgM2ExNyAxNyAwIDAgMSAwIDE4IiAvPjwvc3ZnPg==)](#english)
 
 한국 지역의 **Mapillary 공개 street-level imagery**를 수집하고, **YOLO 사전학습 모델**로 차량·사람·자전거 등 객체를 탐지해 결과를 CSV/Parquet과 bounding box 이미지로 저장하는 파이프라인입니다.
@@ -24,17 +24,22 @@
 
 ```mermaid
 flowchart LR
-    A[Mapillary Graph API v4]:::input --> B[bbox 타일링 및 이미지 검색]:::process
-    B --> C[원본 이미지 다운로드]:::process
-    B --> D[메타데이터 CSV/Parquet]:::output
-    C --> E[YOLO 객체 탐지]:::process
-    E --> F[탐지 결과 CSV/Parquet]:::output
-    E --> G[bounding box 주석 이미지]:::output
+    accTitle: Street Imagery Detection Pipeline In Detail
+    accDescr: Mapillary API에서 config.yaml의 타일 크기만큼 반복해 이미지를 검색·다운로드(실패 시 지수 백오프 재시도)하고, YOLO로 객체를 탐지해 메타데이터·탐지 결과 CSV와 탐지된 이미지에 한한 주석 이미지를 만드는 흐름을 보여준다.
 
-    classDef input fill:#F5F5F5,stroke:#616161,color:#212121
-    classDef process fill:#E0E0E0,stroke:#424242,color:#212121
-    classDef output fill:#EEEEEE,stroke:#000000,color:#000000
-    classDef pending fill:#BDBDBD,stroke:#212121,color:#212121,stroke-dasharray: 4 2
+    mapillary_api["Mapillary Graph API v4"]:::input_style --> search_tiles["bbox 타일링·이미지 검색"]:::process_style
+    tile_loop["config.yaml<br/>bbox_tile_size만큼 반복"]:::aux_style -.-> search_tiles
+    search_tiles --> download_images["원본 이미지 다운로드"]:::process_style
+    retry_note["요청 실패 시<br/>지수 백오프 재시도"]:::aux_style -.-> download_images
+    search_tiles --> save_metadata[("메타데이터 CSV/Parquet")]:::output_style
+    download_images --> detect_objects["YOLO 객체 탐지"]:::process_style
+    detect_objects --> save_detections[("탐지 결과 CSV/Parquet")]:::output_style
+    detect_objects -->|"탐지된 이미지만"| save_annotated["bounding box 주석 이미지"]:::output_style
+
+    classDef input_style fill:#e9eeec,stroke:#4c5b60,stroke-width:2px,color:#2c3a3d
+    classDef process_style fill:#232522,stroke:#111111,stroke-width:2px,color:#f5f3ec
+    classDef output_style fill:#f6efde,stroke:#8a6f45,stroke-width:2px,color:#4a3b22
+    classDef aux_style fill:none,stroke:#a85e1a,stroke-width:2px,stroke-dasharray:4 3,color:#7a4712
 ```
 
 지역 bbox가 크면 Mapillary API의 요청당 결과 수 제한에 걸릴 수 있어서, `config.yaml`의 `bbox_tile_size` 값으로 작은 타일로 나눠 순회하며 수집합니다.
@@ -181,7 +186,7 @@ python scripts/run_pipeline.py --all
 
 ## English
 
-[![한국어](https://img.shields.io/badge/lang-한국어-lightgrey?style=social&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBzdHJva2U9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiIC8+PHBhdGggZD0iTTMgMTJhOSA5IDAgMSAwIDE4IDBhOSA5IDAgMCAwIC0xOCAwIiAvPjxwYXRoIGQ9Ik0zLjYgOWgxNi44IiAvPjxwYXRoIGQ9Ik0zLjYgMTVoMTYuOCIgLz48cGF0aCBkPSJNMTEuNSAzYTE3IDE3IDAgMCAwIDAgMTgiIC8+PHBhdGggZD0iTTEyLjUgM2ExNyAxNyAwIDAgMSAwIDE4IiAvPjwvc3ZnPg==)](#korea-street-imagery-yolo-한국-스트리트-이미지리-yolo-탐지)
+[![한국어](https://img.shields.io/badge/lang-한국어-lightgrey?style=social&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBzdHJva2U9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiIC8+PHBhdGggZD0iTTMgMTJhOSA5IDAgMSAwIDE4IDBhOSA5IDAgMCAwIC0xOCAwIiAvPjxwYXRoIGQ9Ik0zLjYgOWgxNi44IiAvPjxwYXRoIGQ9Ik0zLjYgMTVoMTYuOCIgLz48cGF0aCBkPSJNMTEuNSAzYTE3IDE3IDAgMCAwIDAgMTgiIC8+PHBhdGggZD0iTTEyLjUgM2ExNyAxNyAwIDAgMSAwIDE4IiAvPjwvc3ZnPg==)](#korea-street-imagery-yolo-한국-스트리트뷰-이미지-yolo-객체-탐지)
 [![English](https://img.shields.io/badge/lang-English-lightgrey?style=social&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBzdHJva2U9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiIC8+PHBhdGggZD0iTTMgMTJhOSA5IDAgMSAwIDE4IDBhOSA5IDAgMCAwIC0xOCAwIiAvPjxwYXRoIGQ9Ik0zLjYgOWgxNi44IiAvPjxwYXRoIGQ9Ik0zLjYgMTVoMTYuOCIgLz48cGF0aCBkPSJNMTEuNSAzYTE3IDE3IDAgMCAwIDAgMTgiIC8+PHBhdGggZD0iTTEyLjUgM2ExNyAxNyAwIDAgMSAwIDE4IiAvPjwvc3ZnPg==)](#english)
 
 A pipeline that collects **free Mapillary street-level imagery** across Korea and runs a **pretrained YOLO model** to detect vehicles, people, bicycles, and more, saving the results as CSV/Parquet plus bounding-box-annotated images.
@@ -200,17 +205,22 @@ This project automates the following:
 
 ```mermaid
 flowchart LR
-    A[Mapillary Graph API v4]:::input --> B[bbox tiling and image search]:::process
-    B --> C[Download raw images]:::process
-    B --> D[Metadata CSV/Parquet]:::output
-    C --> E[YOLO object detection]:::process
-    E --> F[Detection results CSV/Parquet]:::output
-    E --> G[Bounding-box annotated images]:::output
+    accTitle: Street Imagery Detection Pipeline In Detail
+    accDescr: Shows images searched and downloaded from the Mapillary API in tile-sized batches (retrying with exponential backoff on failure), then run through YOLO detection to produce metadata, detection-result CSVs, and annotated images limited to images with a detection.
 
-    classDef input fill:#F5F5F5,stroke:#616161,color:#212121
-    classDef process fill:#E0E0E0,stroke:#424242,color:#212121
-    classDef output fill:#EEEEEE,stroke:#000000,color:#000000
-    classDef pending fill:#BDBDBD,stroke:#212121,color:#212121,stroke-dasharray: 4 2
+    mapillary_api["Mapillary Graph API v4"]:::input_style --> search_tiles["bbox tiling, image search"]:::process_style
+    tile_loop["config.yaml<br/>repeat per bbox_tile_size"]:::aux_style -.-> search_tiles
+    search_tiles --> download_images["Download raw images"]:::process_style
+    retry_note["Retry with<br/>exponential backoff"]:::aux_style -.-> download_images
+    search_tiles --> save_metadata[("Metadata CSV/Parquet")]:::output_style
+    download_images --> detect_objects["YOLO object detection"]:::process_style
+    detect_objects --> save_detections[("Detection results CSV/Parquet")]:::output_style
+    detect_objects -->|"detected images only"| save_annotated["Bounding-box annotated images"]:::output_style
+
+    classDef input_style fill:#e9eeec,stroke:#4c5b60,stroke-width:2px,color:#2c3a3d
+    classDef process_style fill:#232522,stroke:#111111,stroke-width:2px,color:#f5f3ec
+    classDef output_style fill:#f6efde,stroke:#8a6f45,stroke-width:2px,color:#4a3b22
+    classDef aux_style fill:none,stroke:#a85e1a,stroke-width:2px,stroke-dasharray:4 3,color:#7a4712
 ```
 
 Mapillary's `/images` endpoint caps the number of results per request, so large areas are split into smaller tiles using `bbox_tile_size` in `config.yaml` to get fuller coverage.
